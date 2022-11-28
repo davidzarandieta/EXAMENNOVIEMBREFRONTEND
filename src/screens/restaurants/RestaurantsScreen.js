@@ -6,7 +6,7 @@ import ImageCard from '../../components/ImageCard'
 import TextSemiBold from '../../components/TextSemibold'
 import TextRegular from '../../components/TextRegular'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { brandPrimary, brandPrimaryTap, brandSecondary, flashStyle, flashTextStyle } from '../../styles/GlobalStyles'
+import { brandPrimary, brandPrimaryTap, brandSecondary, brandSuccess, flashStyle, flashTextStyle } from '../../styles/GlobalStyles'
 import { AuthorizationContext } from '../../context/AuthorizationContext'
 import { showMessage } from 'react-native-flash-message'
 
@@ -44,6 +44,15 @@ export default function RestaurantsScreen ({ navigation, route }) {
           navigation.navigate('RestaurantDetailScreen', { id: item.id })
         }}
       >
+         {item.promoted &&
+          <TextRegular textStyle={{ color: brandPrimary, textAlign: 'right' }}>En promoción!</TextRegular>
+        }
+        {item.expensive &&
+          <TextRegular textStyle={{ color: brandPrimary, textAlign: 'right' }}>$$</TextRegular>
+        }
+        {item.expensive== false &&
+          <TextRegular textStyle={{ color: brandSuccess, textAlign: 'right' }}>$</TextRegular>
+        }
         <TextRegular numberOfLines={2}>{item.description}</TextRegular>
         {item.averageServiceMinutes !== null &&
           <TextSemiBold>Avg. service time: <TextSemiBold textStyle={{ color: brandPrimary }}>{item.averageServiceMinutes} min.</TextSemiBold></TextSemiBold>

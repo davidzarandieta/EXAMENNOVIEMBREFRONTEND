@@ -17,7 +17,7 @@ export default function CreateProductScreen ({ navigation, route }) {
   const [productCategories, setProductCategories] = useState([])
   const [backendErrors, setBackendErrors] = useState()
 
-  const initialProductValues = { name: '', description: '', price: 0, order: 0, restaurantId: route.params.id, productCategoryId: null, availability: true }
+  const initialProductValues = { name: '', description: '', price: 0, order: 0,fats:0,proteins:0,carbo:0,calories:0, restaurantId: route.params.id,promoted: false, productCategoryId: null, availability: true, }
   const validationSchema = yup.object().shape({
     name: yup
       .string()
@@ -111,6 +111,18 @@ export default function CreateProductScreen ({ navigation, route }) {
                 name='order'
                 label='Order/position to be rendered:'
               />
+              <InputItem
+                name='fats'
+                label='Fats:'
+              />
+              <InputItem
+                name='proteins'
+                label='Proteins:'
+              />
+              <InputItem
+                name='carbo'
+                label='Carbohydrates:'
+              />
 
               <DropDownPicker
                 open={open}
@@ -136,6 +148,17 @@ export default function CreateProductScreen ({ navigation, route }) {
                 style={styles.switch}
                 onValueChange={value =>
                   setFieldValue('availability', value)
+                }
+              />
+              <TextRegular>Is it promoted?</TextRegular>
+              <Switch
+                trackColor={{ false: brandSecondary, true: brandPrimary }}
+                thumbColor={values.promoted ? brandSecondary : '#f4f3f4'}
+                // onValueChange={toggleSwitch}
+                value={values.promoted}
+                style={styles.switch}
+                onValueChange={value =>
+                  setFieldValue('promoted', value)
                 }
               />
 

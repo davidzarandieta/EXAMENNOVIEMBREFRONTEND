@@ -7,11 +7,12 @@ import { getDetail } from '../../api/RestaurantEndpoints'
 import ImageCard from '../../components/ImageCard'
 import TextRegular from '../../components/TextRegular'
 import TextSemiBold from '../../components/TextSemibold'
-import { brandPrimary, brandPrimaryTap, brandSecondary, flashStyle, flashTextStyle } from '../../styles/GlobalStyles'
+import { brandPrimary, brandPrimaryTap, brandSecondary, brandSuccess, flashStyle, flashTextStyle } from '../../styles/GlobalStyles'
 
 export default function RestaurantDetailScreen ({ navigation, route }) {
   const [restaurant, setRestaurant] = useState({})
 
+  
   useEffect(() => {
     async function fetchRestaurantDetail () {
       try {
@@ -67,7 +68,14 @@ export default function RestaurantDetailScreen ({ navigation, route }) {
         imageUri={item.image ? { uri: process.env.API_BASE_URL + '/' + item.image } : undefined}
         title={item.name}
       >
+        {item.promoted && <TextSemiBold textStyle={styles.price}>PROMOTIONAL!!!</TextSemiBold>}
+        {item.healthy && <TextSemiBold textStyle={{ color: brandSuccess, textAlign: 'right' }}>Healthy</TextSemiBold>}
+        {item.healthy==false && <TextSemiBold textStyle={{ color: brandPrimary, textAlign: 'right' }}>Healthy</TextSemiBold>}
         <TextRegular numberOfLines={2}>{item.description}</TextRegular>
+        <TextRegular numberOfLines={2}>Grasas:{item.fats}</TextRegular>
+        <TextRegular numberOfLines={2}>Proteinas:{item.proteins}</TextRegular>
+        <TextRegular numberOfLines={2}>Carbohidratos:{item.carbo}</TextRegular>
+        <TextRegular numberOfLines={2}>Calorias:{item.calories}</TextRegular>
         <TextSemiBold textStyle={styles.price}>{item.price.toFixed(2)}€</TextSemiBold>
       </ImageCard>
     )
